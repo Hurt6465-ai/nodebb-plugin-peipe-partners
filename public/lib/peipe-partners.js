@@ -222,14 +222,28 @@
 
 
   function relationshipText(user) {
-    if (!user) return '';
-    var key = user.relationshipKey || '';
-    var raw = user.relationshipStatus || user.relationship_status || '';
-    var text = key ? t(key) : raw;
-    if (!text || text === '保密' || text === 'Private' || text === 'Riêng tư' || text === 'မပြပါ') return '';
-    var emoji = user.relationshipEmoji || '';
-    if (emoji && text.indexOf(emoji) !== 0) text = emoji + ' ' + text;
-    return text;
+  if (!user) return '';
+
+  var key = String(user.relationshipKey || '').trim();
+  var raw = String(user.relationshipStatus || user.relationship_status || '').trim();
+
+  if (
+    key === 'option-relationship-private' ||
+    raw === '保密' ||
+    raw === 'Private' ||
+    raw === 'မပြပါ' ||
+    raw === 'Riêng tư'
+  ) {
+    return '';
+  }
+
+  var text = key ? t(key) : raw;
+  if (!text) return '';
+
+  var emoji = user.relationshipEmoji || '';
+  if (emoji && text.indexOf(emoji) !== 0) text = emoji + ' ' + text;
+
+  return text;
   }
 
   function relationshipPill(user) {
