@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var VERSION = 'plugin-1.1.2-active24h';
+  var VERSION = 'plugin-1.1.3-profile-multiselect';
   window.PEIPE_PARTNER_FRONTEND_VERSION = VERSION;
 
   var CONFIG = {
@@ -541,21 +541,43 @@
     var key = option.key || '';
     var translated = key ? t(key) : '';
     var token = key ? '[[peipe-partners:' + key + ']]' : '';
-    if (translated && translated !== key && translated !== token && translated.indexOf('[[peipe-partners:') === -1) {
-      return translated;
+    var text = '';
+
+    if (
+      translated &&
+      translated !== key &&
+      translated !== token &&
+      translated.indexOf('[[peipe-partners:') === -1
+    ) {
+      text = translated;
+    } else {
+      text = option.textLabel || option.label || option.value || '';
     }
-    return option.label || option.value || '';
+
+    var emoji = option.flagEmoji || '';
+    if (emoji && text.indexOf(emoji) !== 0) {
+      text = emoji + ' ' + text.replace(emoji, '').trim();
+    }
+
+    return text;
   }
 
-  function firstValue(value) {
-    if (Array.isArray(value)) return value[0] || '';
-    if (!value) return '';
+  function parseValues(value) {
+    if (Array.isArray(value)) {
+      return value.map(function (item) { return String(item || '').trim(); }).filter(Boolean);
+    }
+    if (!value) return [];
     try {
       var parsed = JSON.parse(value);
-      if (Array.isArray(parsed)) return parsed[0] || '';
-      return parsed || '';
+      if (Array.isArray(parsed)) return parseValues(parsed);
+      if (parsed && typeof parsed === 'object') return parseValues(Object.keys(parsed).map(function (key) { return parsed[key]; }));
+      return parseValues(String(parsed || ''));
     } catch (e) {
-      return String(value || '').replace(/["\[\]{}]/g, '').split(/[，,|/]+/)[0] || '';
+      return String(value || '')
+        .replace(/["\[\]{}]/g, '')
+        .split(/[，,|/]+/)
+        .map(function (item) { return item.trim(); })
+        .filter(Boolean);
     }
   }
 
@@ -564,14 +586,28 @@
     return (optionsList || []).filter(function (option) { return String(option.value) === value; })[0] || null;
   }
 
-  function buildChoice(name, label, optionsList, value) {
-    var selected = findOption(optionsList, value);
-    var display = selected ? optionLabel(selected) : t('profile-select-placeholder');
+  function selectedLabels(optionsList, values) {
+    var list = parseValues(values);
+    var labels = list.map(function (value) {
+      var selected = findOption(optionsList, value);
+      return selected ? optionLabel(selected) : value;
+    }).filter(Boolean);
+    return labels.join('、');
+  }
+
+  function hiddenValue(values, multiple) {
+    var list = parseValues(values);
+    return multiple ? JSON.stringify(list) : (list[0] || '');
+  }
+
+  function buildChoice(name, label, optionsList, value, multiple) {
+    var values = parseValues(value);
+    var display = values.length ? selectedLabels(optionsList, values) : t('profile-select-placeholder');
     return '' +
-      '<label class="peipe-profile-field peipe-choice-field" data-name="' + escapeHtml(name) + '">' +
+      '<label class="peipe-profile-field peipe-choice-field ' + (multiple ? 'multiple' : '') + '" data-name="' + escapeHtml(name) + '">' +
         '<span>' + escapeHtml(label) + '</span>' +
-        '<input type="hidden" name="' + escapeHtml(name) + '" value="' + escapeHtml(value || '') + '">' +
-        '<button type="button" class="peipe-choice-trigger" data-name="' + escapeHtml(name) + '">' +
+        '<input type="hidden" name="' + escapeHtml(name) + '" value="' + escapeHtml(hiddenValue(values, multiple)) + '" data-multiple="' + (multiple ? '1' : '0') + '">' +
+        '<button type="button" class="peipe-choice-trigger" data-name="' + escapeHtml(name) + '" data-multiple="' + (multiple ? '1' : '0') + '">' +
           '<span class="peipe-choice-text">' + escapeHtml(display) + '</span>' +
           '<span class="peipe-choice-chevron">›</span>' +
         '</button>' +
@@ -581,38 +617,75 @@
   function showChoicePicker(modal, config) {
     var old = modal.querySelector('.peipe-picker-mask');
     if (old) old.remove();
-    var current = modal.querySelector('input[name="' + config.name + '"]').value;
+
+    var input = modal.querySelector('input[name="' + config.name + '"]');
+    var currentValues = parseValues(input && input.value);
+    var selectedSet = {};
+    currentValues.forEach(function (value) {
+      selectedSet[value] = true;
+    });
+
     var picker = document.createElement('div');
     picker.className = 'peipe-picker-mask';
+
     var html = '' +
       '<div class="peipe-picker-sheet" role="dialog" aria-modal="true">' +
         '<div class="peipe-picker-head">' +
           '<button type="button" class="peipe-picker-back" aria-label="Close">×</button>' +
           '<strong>' + escapeHtml(config.label) + '</strong>' +
+          (config.multiple ? '<button type="button" class="peipe-picker-done">' + escapeHtml(t('profile-save')) + '</button>' : '') +
         '</div>' +
         '<div class="peipe-picker-options">';
+
     (config.options || []).forEach(function (option) {
-      var active = String(option.value) === String(current) ? ' active' : '';
+      var active = selectedSet[String(option.value)] ? ' active' : '';
       html += '<button type="button" class="peipe-picker-option' + active + '" data-value="' + escapeHtml(option.value) + '" data-label="' + escapeHtml(optionLabel(option)) + '">' +
         '<span>' + escapeHtml(optionLabel(option)) + '</span>' +
         '<i></i>' +
       '</button>';
     });
+
     html += '</div></div>';
     picker.innerHTML = html;
     modal.appendChild(picker);
+
+    function applySelection(closePicker) {
+      var selected = [];
+      picker.querySelectorAll('.peipe-picker-option.active').forEach(function (item) {
+        selected.push(item.getAttribute('data-value') || '');
+      });
+
+      var text = modal.querySelector('.peipe-choice-field[data-name="' + config.name + '"] .peipe-choice-text');
+      input.value = hiddenValue(selected, !!config.multiple);
+      text.textContent = selected.length ? selectedLabels(config.options, selected) : t('profile-select-placeholder');
+
+      if (closePicker) picker.remove();
+    }
+
     picker.addEventListener('click', function (event) {
       if (event.target === picker || event.target.closest('.peipe-picker-back')) {
         picker.remove();
         return;
       }
+
+      if (event.target.closest('.peipe-picker-done')) {
+        applySelection(true);
+        return;
+      }
+
       var item = event.target.closest('.peipe-picker-option');
       if (!item) return;
-      var input = modal.querySelector('input[name="' + config.name + '"]');
-      var text = modal.querySelector('.peipe-choice-field[data-name="' + config.name + '"] .peipe-choice-text');
-      input.value = item.getAttribute('data-value') || '';
-      text.textContent = item.getAttribute('data-label') || t('profile-select-placeholder');
-      picker.remove();
+
+      if (config.multiple) {
+        item.classList.toggle('active');
+        applySelection(false);
+      } else {
+        picker.querySelectorAll('.peipe-picker-option.active').forEach(function (activeItem) {
+          activeItem.classList.remove('active');
+        });
+        item.classList.add('active');
+        applySelection(true);
+      }
     });
   }
 
@@ -627,28 +700,31 @@
         '<h2 id="peipe-profile-title">' + escapeHtml(t('profile-title')) + '</h2>' +
         '<p>' + escapeHtml(t('profile-subtitle')) + '</p>' +
         '<form class="peipe-profile-form">' +
-          buildChoice('language_flag', t('profile-country'), STATE.options.countries, profile.language_flag) +
-          buildChoice('language_fluent', t('profile-native'), STATE.options.languages, firstValue(profile.language_fluent)) +
-          buildChoice('language_learning', t('profile-learning'), STATE.options.languages, firstValue(profile.language_learning)) +
-          buildChoice('gender', t('profile-gender'), STATE.options.genders, profile.gender) +
-          '<label class="peipe-profile-field"><span>' + escapeHtml(t('profile-age')) + '</span><input name="age" type="number" min="13" max="99" inputmode="numeric" value="' + escapeHtml(profile.age || '') + '" placeholder="' + escapeHtml(t('profile-age-placeholder')) + '"></label>' +
+          buildChoice('language_flag', t('profile-country'), STATE.options.countries, profile.language_flag, false) +
+          buildChoice('language_fluent', t('profile-native'), STATE.options.languages, parseValues(profile.language_fluent), true) +
+          buildChoice('language_learning', t('profile-learning'), STATE.options.languages, parseValues(profile.language_learning), true) +
+          buildChoice('gender', t('profile-gender'), STATE.options.genders, profile.gender, false) +
+          '<label class="peipe-profile-field peipe-age-field"><span>' + escapeHtml(t('profile-age')) + '</span><input name="age" type="number" min="13" max="99" inputmode="numeric" value="' + escapeHtml(profile.age || '') + '" placeholder="' + escapeHtml(t('profile-age-placeholder')) + '"></label>' +
           '<div class="peipe-profile-error" hidden></div>' +
           '<button class="peipe-profile-submit" type="submit">' + escapeHtml(t('profile-save')) + '</button>' +
         '</form>' +
       '</div>';
     document.body.appendChild(modal);
+
     var fields = {
-      language_flag: { name: 'language_flag', label: t('profile-country'), options: STATE.options.countries },
-      language_fluent: { name: 'language_fluent', label: t('profile-native'), options: STATE.options.languages },
-      language_learning: { name: 'language_learning', label: t('profile-learning'), options: STATE.options.languages },
-      gender: { name: 'gender', label: t('profile-gender'), options: STATE.options.genders }
+      language_flag: { name: 'language_flag', label: t('profile-country'), options: STATE.options.countries, multiple: false },
+      language_fluent: { name: 'language_fluent', label: t('profile-native'), options: STATE.options.languages, multiple: true },
+      language_learning: { name: 'language_learning', label: t('profile-learning'), options: STATE.options.languages, multiple: true },
+      gender: { name: 'gender', label: t('profile-gender'), options: STATE.options.genders, multiple: false }
     };
+
     modal.addEventListener('click', function (event) {
       var trigger = event.target.closest && event.target.closest('.peipe-choice-trigger');
       if (!trigger) return;
       var name = trigger.getAttribute('data-name');
       if (fields[name]) showChoicePicker(modal, fields[name]);
     });
+
     var form = modal.querySelector('form');
     var error = modal.querySelector('.peipe-profile-error');
     form.addEventListener('submit', function (event) {
@@ -656,11 +732,19 @@
       var data = new FormData(form);
       var payload = {};
       data.forEach(function (value, key) { payload[key] = value; });
-      if (!payload.language_flag || !payload.language_fluent || !payload.language_learning || !payload.gender || !payload.age) {
+
+      var nativeValues = parseValues(payload.language_fluent);
+      var learningValues = parseValues(payload.language_learning);
+
+      if (!payload.language_flag || !nativeValues.length || !learningValues.length || !payload.gender || !payload.age) {
         error.textContent = t('profile-required');
         error.hidden = false;
         return;
       }
+
+      payload.language_fluent = JSON.stringify(nativeValues);
+      payload.language_learning = JSON.stringify(learningValues);
+
       var btn = form.querySelector('button[type="submit"]');
       btn.disabled = true;
       btn.textContent = t('profile-saving');
@@ -689,6 +773,9 @@
   function maybeShowProfileModal() {
     if (!hasUser()) return Promise.resolve();
     return fetchJson('/api/peipe-partners/options').then(function (data) {
+      if (data && data.i18n) {
+        STATE.i18n = Object.assign({}, STATE.i18n, data.i18n);
+      }
       STATE.options = data.options || data;
       return fetchJson('/api/peipe-partners/me/profile-status');
     }).then(function (status) {
