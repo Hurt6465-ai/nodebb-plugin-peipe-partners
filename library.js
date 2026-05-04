@@ -30,7 +30,7 @@ plugin.init = async ({ router, middleware }) => {
   }));
 
   router.get('/api/peipe-partners/options', asyncRoute(async (req, res) => {
-    json(res, await partner.options());
+    json(res, await partner.options(req));
   }));
 
   router.get('/api/peipe-partners/me/profile-status', middleware.ensureLoggedIn, asyncRoute(async (req, res) => {
@@ -60,7 +60,7 @@ plugin.addRoutes = async ({ router, middleware, helpers }) => {
   });
 
   routeHelpers.setupApiRoute(router, 'get', '/peipe-partners/options', [], async (req, res) => {
-    helpers.formatApiResponse(200, res, await partner.options());
+    helpers.formatApiResponse(200, res, await partner.options(req));
   });
 
   routeHelpers.setupApiRoute(router, 'get', '/peipe-partners/me/profile-status', [middleware.ensureLoggedIn], async (req, res) => {
