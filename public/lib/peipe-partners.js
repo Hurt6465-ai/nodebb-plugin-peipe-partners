@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var VERSION = 'plugin-1.1.0';
+  var VERSION = 'plugin-1.1.2-active24h';
   window.PEIPE_PARTNER_FRONTEND_VERSION = VERSION;
 
   var CONFIG = {
@@ -537,7 +537,14 @@
   }
 
   function optionLabel(option) {
-    return t(option.key || '') || option.label || option.value || '';
+    if (!option) return '';
+    var key = option.key || '';
+    var translated = key ? t(key) : '';
+    var token = key ? '[[peipe-partners:' + key + ']]' : '';
+    if (translated && translated !== key && translated !== token && translated.indexOf('[[peipe-partners:') === -1) {
+      return translated;
+    }
+    return option.label || option.value || '';
   }
 
   function firstValue(value) {
@@ -580,7 +587,7 @@
     var html = '' +
       '<div class="peipe-picker-sheet" role="dialog" aria-modal="true">' +
         '<div class="peipe-picker-head">' +
-          '<button type="button" class="peipe-picker-back" aria-label="Back">‹</button>' +
+          '<button type="button" class="peipe-picker-back" aria-label="Close">×</button>' +
           '<strong>' + escapeHtml(config.label) + '</strong>' +
         '</div>' +
         '<div class="peipe-picker-options">';
