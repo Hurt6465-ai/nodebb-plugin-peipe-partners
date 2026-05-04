@@ -66,7 +66,7 @@
   background: #fff;
 }
 
-/* 高级磨砂玻璃卡片：暖黄 + 灰蓝 + 边缘光 */
+/* 高级磨砂玻璃卡片：保留你这版 */
 .peipe-partner-card {
   position: relative;
   display: flex;
@@ -298,7 +298,6 @@
   font-size: 10px;
 }
 
-/* 介绍文字自适应高度：没内容不占位，有内容自然撑开 */
 .peipe-bio {
   max-width: 100%;
   overflow: visible;
@@ -328,56 +327,77 @@
   padding-top: 2px;
 }
 
-/* 打招呼按钮：👋 HI */
+/* 打招呼按钮：低饱和紫色、小圆角、白色手掌 + 斜体 HI */
 .peipe-greet-btn {
+  position: relative;
   width: 62px;
   height: 42px;
   border: 0;
-  border-radius: 999px;
+  border-radius: 15px;
+  overflow: hidden;
   background:
-    linear-gradient(135deg, rgba(255, 240, 164, .96), rgba(255, 198, 0, .95));
-  color: #171717;
+    linear-gradient(145deg, rgba(151, 132, 214, .96), rgba(112, 98, 178, .96));
+  color: #fff;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 5px;
   cursor: pointer;
   user-select: none;
   outline: none;
   box-shadow:
-    0 10px 22px rgba(255, 198, 0, .26),
+    0 10px 22px rgba(112, 98, 178, .24),
     0 3px 8px rgba(15, 23, 42, .08),
-    inset 0 1px 0 rgba(255, 255, 255, .75);
-  transition: transform .12s ease, opacity .12s ease, box-shadow .12s ease;
+    inset 0 1px 0 rgba(255, 255, 255, .30),
+    inset 0 -1px 0 rgba(36, 27, 82, .16);
+  transition:
+    transform .14s ease,
+    opacity .14s ease,
+    box-shadow .14s ease,
+    filter .14s ease;
   -webkit-tap-highlight-color: transparent;
 }
 
 .peipe-greet-btn::before {
   content: "👋";
-  font-size: 17px;
+  position: relative;
+  z-index: 1;
+  font-size: 16px;
   line-height: 1;
   transform: translateY(-1px);
+  filter: brightness(0) invert(1);
 }
 
 .peipe-greet-btn::after {
   content: "HI";
+  position: relative;
+  z-index: 1;
+  color: #fff;
   font-size: 12px;
   line-height: 1;
   font-weight: 900;
-  letter-spacing: .02em;
+  font-style: italic;
+  letter-spacing: .03em;
+  transform: skewX(-9deg) rotate(-3deg) translateY(.5px);
+  transform-origin: center;
 }
 
 .peipe-greet-btn:active {
-  transform: scale(.96);
+  transform: scale(.96) translateY(1px);
   box-shadow:
-    0 7px 16px rgba(255, 198, 0, .22),
+    0 7px 16px rgba(112, 98, 178, .20),
     0 2px 6px rgba(15, 23, 42, .08),
-    inset 0 1px 0 rgba(255, 255, 255, .7);
+    inset 0 1px 0 rgba(255, 255, 255, .26);
 }
 
 .peipe-greet-btn.loading {
   opacity: .62;
   pointer-events: none;
+}
+
+.peipe-greet-btn.loading::before,
+.peipe-greet-btn.loading::after {
+  display: none;
 }
 
 .peipe-send-svg {
@@ -388,18 +408,15 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  border: 2px solid rgba(23, 23, 23, .14);
-  border-top-color: #171717;
+  border: 2px solid rgba(255, 255, 255, .22);
+  border-top-color: #fff;
   animation: peipe-spin .75s linear infinite;
 }
 
-.peipe-greet-btn.loading::before,
-.peipe-greet-btn.loading::after {
-  display: none;
-}
-
 @keyframes peipe-spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .peipe-distance {
@@ -483,7 +500,9 @@
 }
 
 @keyframes peipe-shimmer {
-  100% { left: 140%; }
+  100% {
+    left: 140%;
+  }
 }
 
 .peipe-skeleton-avatar {
@@ -533,7 +552,7 @@
 .peipe-skeleton-button {
   width: 62px;
   height: 42px;
-  border-radius: 999px;
+  border-radius: 15px;
 }
 
 .peipe-profile-mask {
@@ -551,9 +570,9 @@
 
 .peipe-profile-sheet {
   position: relative;
-  width: min(430px, 100%);
-  max-height: calc(100vh - 36px);
-  overflow: hidden;
+  width: min(392px, 100%);
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
   padding: 24px 18px 18px;
   border-radius: 30px;
   border: 1px solid rgba(255, 255, 255, .72);
@@ -590,272 +609,18 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.peipe-profile-field {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  font-size: 12px;
-  font-weight: 760;
-  color: #475467;
-}
-
-.peipe-profile-field input,
-.peipe-choice-trigger {
-  width: 100%;
-  height: 46px;
-  padding: 0 13px;
-  border-radius: 17px;
-  border: 1px solid rgba(229, 231, 235, .86);
-  background: rgba(255, 255, 255, .68);
-  color: #111827;
-  outline: none;
-  font-size: 14px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.75), 0 7px 18px rgba(16, 24, 40, .035);
-}
-
-.peipe-choice-trigger {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  text-align: left;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.peipe-choice-text {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.peipe-choice-chevron {
-  flex: 0 0 auto;
-  color: #98a2b3;
-  font-size: 22px;
-  line-height: 1;
-  margin-left: 8px;
-}
-
-.peipe-profile-error {
-  grid-column: 1 / -1;
-  color: #e64a19;
-  font-size: 12px;
-  line-height: 1.35;
-  padding: 2px 2px 0;
-}
-
-.peipe-profile-submit {
-  grid-column: 1 / -1;
-  height: 49px;
-  margin-top: 2px;
-  border: 0;
-  border-radius: 19px;
-  background: linear-gradient(135deg, #ffe070, #ffc600);
-  color: #171717;
-  font-size: 15px;
-  font-weight: 850;
-  box-shadow: 0 12px 28px rgba(255, 196, 0, .25);
-}
-
-.peipe-profile-submit:disabled {
-  opacity: .68;
-}
-
-.peipe-picker-mask {
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 18px;
-  border-radius: inherit;
-  background: rgba(15, 23, 42, .16);
-  backdrop-filter: blur(14px) saturate(1.15);
-  -webkit-backdrop-filter: blur(14px) saturate(1.15);
-}
-
-.peipe-picker-sheet {
-  width: min(100%, 340px);
-  max-height: min(76vh, 430px);
-  padding: 14px;
-  border-radius: 24px;
-  border: 1px solid rgba(255,255,255,.68);
-  background:
-    radial-gradient(circle at 8% 0%, rgba(255, 232, 149, .36), rgba(255,232,149,0) 42%),
-    linear-gradient(145deg, rgba(255,255,255,.88), rgba(248,251,255,.76));
-  box-shadow: 0 24px 70px rgba(15, 23, 42, .22), inset 0 1px 0 rgba(255,255,255,.82);
-  overflow: auto;
-}
-
-.peipe-picker-head {
-  min-height: 38px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 2px 2px 10px;
-}
-
-.peipe-picker-head strong {
-  flex: 1;
-  min-width: 0;
-  font-size: 18px;
-  font-weight: 900;
-  color: #111827;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.peipe-picker-back {
-  width: 34px;
-  height: 34px;
-  border: 0;
-  border-radius: 50%;
-  background: rgba(255,255,255,.78);
-  color: #4b5563;
-  font-size: 24px;
-  line-height: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 6px 16px rgba(15,23,42,.08), inset 0 1px 0 rgba(255,255,255,.92);
-}
-
-.peipe-picker-options {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.peipe-picker-option {
-  width: 100%;
-  min-height: 48px;
-  border: 1px solid rgba(229,231,235,.72);
-  border-radius: 17px;
-  padding: 0 13px 0 15px;
-  background: rgba(255,255,255,.72);
-  color: #111827;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  font-size: 16px;
-  font-weight: 760;
-  text-align: left;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.75), 0 8px 18px rgba(15,23,42,.045);
-}
-
-.peipe-picker-option span {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.peipe-picker-option i {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  flex: 0 0 20px;
-  border: 0;
-  background: rgba(209,213,219,.58);
-  position: relative;
-}
-
-.peipe-picker-option.active {
-  border-color: rgba(255, 199, 0, .74);
-  background: linear-gradient(145deg, rgba(255, 251, 231, .94), rgba(255, 247, 207, .82));
-  box-shadow: 0 10px 26px rgba(255, 198, 0, .15), inset 0 1px 0 rgba(255,255,255,.86);
-}
-
-.peipe-picker-option.active i {
-  background: #ffc600;
-  box-shadow: 0 4px 12px rgba(255, 198, 0, .28);
-}
-
-.peipe-picker-option.active i::after {
-  content: "";
-  position: absolute;
-  left: 6px;
-  top: 4px;
-  width: 5px;
-  height: 9px;
-  border: solid #111827;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}
-
-@media (max-width: 360px) {
-  .peipe-partner-card {
-    padding: 10px 8px 10px 10px;
-    gap: 6px;
-  }
-
-  .peipe-left {
-    width: 52px;
-    flex-basis: 52px;
-    margin-right: 8px;
-  }
-
-  .peipe-avatar-wrap,
-  .peipe-avatar {
-    width: 50px;
-    height: 50px;
-  }
-
-  .peipe-side {
-    width: 58px;
-    flex-basis: 58px;
-  }
-
-  .peipe-greet-btn {
-    width: 56px;
-    height: 40px;
-  }
-
-  .peipe-greet-btn::before {
-    font-size: 16px;
-  }
-
-  .peipe-greet-btn::after {
-    font-size: 11px;
-  }
-
-  .peipe-name {
-    font-size: 16.5px;
-  }
-
-  .peipe-bio {
-    font-size: 13px;
-    line-height: 1.44;
-  }
-
-  .peipe-profile-form {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* v1.1.3 profile modal refinements: single column, readable flags, multi-select picker */
-.peipe-profile-sheet {
-  width: min(392px, 100%);
-  max-height: calc(100vh - 32px);
-  overflow-y: auto;
-  padding: 24px 18px 18px;
-}
-
-.peipe-profile-form {
   grid-template-columns: 1fr !important;
   gap: 13px;
 }
 
 .peipe-profile-field {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 760;
+  color: #475467;
 }
 
 .peipe-profile-field[data-name="language_flag"] {
@@ -880,15 +645,41 @@
   right: 16px;
 }
 
+.peipe-profile-field input,
 .peipe-choice-trigger {
-  position: relative;
+  width: 100%;
   min-height: 48px;
   height: auto;
-  padding-top: 11px;
-  padding-bottom: 11px;
+  padding: 11px 13px;
+  border-radius: 17px;
+  border: 1px solid rgba(229, 231, 235, .86);
+  background: rgba(255, 255, 255, .68);
+  color: #111827;
+  outline: none;
+  font-size: 14px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.75), 0 7px 18px rgba(16, 24, 40, .035);
+}
+
+.peipe-profile-field input {
+  height: 48px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.peipe-choice-trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .peipe-choice-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: normal;
   line-height: 1.25;
 }
@@ -899,18 +690,48 @@
   -webkit-box-orient: vertical;
 }
 
-.peipe-profile-field input {
-  height: 48px;
+.peipe-choice-chevron {
+  flex: 0 0 auto;
+  color: #98a2b3;
+  font-size: 22px;
+  line-height: 1;
+  margin-left: 8px;
+}
+
+.peipe-profile-error {
+  grid-column: 1 / -1;
+  color: #e64a19;
+  font-size: 12px;
+  line-height: 1.35;
+  padding: 2px 2px 0;
 }
 
 .peipe-profile-submit {
+  grid-column: 1 / -1;
   height: 52px;
   margin-top: 3px;
+  border: 0;
+  border-radius: 19px;
+  background: linear-gradient(135deg, #ffe070, #ffc600);
+  color: #171717;
+  font-size: 15px;
+  font-weight: 850;
+  box-shadow: 0 12px 28px rgba(255, 196, 0, .25);
+}
+
+.peipe-profile-submit:disabled {
+  opacity: .68;
 }
 
 .peipe-picker-mask {
-  padding: 14px;
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  padding: 14px;
+  border-radius: inherit;
   background: rgba(15, 23, 42, .18);
   backdrop-filter: blur(18px) saturate(1.18);
   -webkit-backdrop-filter: blur(18px) saturate(1.18);
@@ -920,15 +741,23 @@
   width: min(100%, 344px);
   height: auto;
   max-height: min(74vh, 430px);
-  border-radius: 24px;
   padding: 14px;
+  border-radius: 24px;
   border: 1px solid rgba(255,255,255,.72);
+  background:
+    radial-gradient(circle at 8% 0%, rgba(255, 232, 149, .36), rgba(255,232,149,0) 42%),
+    linear-gradient(145deg, rgba(255,255,255,.88), rgba(248,251,255,.76));
   box-shadow: 0 24px 68px rgba(15, 23, 42, .22), inset 0 1px 0 rgba(255,255,255,.86);
+  overflow: auto;
 }
 
 .peipe-picker-head {
   min-height: 40px;
   height: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 2px 2px 10px;
   margin-bottom: 10px;
 }
 
@@ -937,6 +766,8 @@
   min-width: 0;
   font-size: 17px;
   line-height: 1.25;
+  font-weight: 900;
+  color: #111827;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -944,6 +775,18 @@
 
 .peipe-picker-back {
   flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,.78);
+  color: #4b5563;
+  font-size: 24px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(15,23,42,.08), inset 0 1px 0 rgba(255,255,255,.92);
 }
 
 .peipe-picker-done {
@@ -959,16 +802,36 @@
   box-shadow: 0 8px 18px rgba(255, 198, 0, .2);
 }
 
+.peipe-picker-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .peipe-picker-option {
+  width: 100%;
   min-height: 50px;
+  border: 1px solid rgba(229,231,235,.72);
+  border-radius: 17px;
   padding: 9px 12px 9px 15px;
+  background: rgba(255,255,255,.72);
+  color: #111827;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 760;
   text-align: left;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.75), 0 8px 18px rgba(15,23,42,.045);
 }
 
 .peipe-picker-option span {
   min-width: 0;
   flex: 1;
   line-height: 1.25;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: normal;
 }
 
@@ -977,12 +840,18 @@
   flex: 0 0 20px;
   width: 20px;
   height: 20px;
+  border-radius: 50%;
   border: 0;
   background: rgba(209, 213, 219, .65);
 }
 
+.peipe-picker-option.active {
+  border-color: rgba(255, 199, 0, .74);
+  background: linear-gradient(145deg, rgba(255, 251, 231, .94), rgba(255, 247, 207, .82));
+  box-shadow: 0 10px 26px rgba(255, 198, 0, .15), inset 0 1px 0 rgba(255,255,255,.86);
+}
+
 .peipe-picker-option.active i {
-  border: 0;
   background: #ffc600;
   box-shadow: 0 4px 12px rgba(255, 198, 0, .28);
 }
@@ -1011,5 +880,56 @@
 
   .peipe-profile-field[data-name="language_flag"] {
     max-width: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .peipe-partner-card {
+    padding: 10px 8px 10px 10px;
+    gap: 6px;
+  }
+
+  .peipe-left {
+    width: 52px;
+    flex-basis: 52px;
+    margin-right: 8px;
+  }
+
+  .peipe-avatar-wrap,
+  .peipe-avatar {
+    width: 50px;
+    height: 50px;
+  }
+
+  .peipe-side {
+    width: 58px;
+    flex-basis: 58px;
+  }
+
+  .peipe-greet-btn {
+    width: 56px;
+    height: 40px;
+    border-radius: 14px;
+  }
+
+  .peipe-greet-btn::before {
+    font-size: 15px;
+  }
+
+  .peipe-greet-btn::after {
+    font-size: 11px;
+  }
+
+  .peipe-name {
+    font-size: 16.5px;
+  }
+
+  .peipe-bio {
+    font-size: 13px;
+    line-height: 1.44;
+  }
+
+  .peipe-profile-form {
+    grid-template-columns: 1fr;
   }
 }
