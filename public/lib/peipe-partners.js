@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var VERSION = 'plugin-1.1.3-profile-multiselect';
+  var VERSION = 'plugin-1.1.5-relationship-cssfile';
   window.PEIPE_PARTNER_FRONTEND_VERSION = VERSION;
 
   var CONFIG = {
@@ -47,10 +47,19 @@
     'profile-error', 'profile-select-placeholder', 'profile-picker-title', 'profile-change',
     'greet-limit-exceeded', 'greet-remaining', 'option-country-cn', 'option-country-mm',
     'option-country-vn', 'option-country-sg', 'option-language-cn', 'option-language-mm',
-    'option-language-vi', 'option-gender-male', 'option-gender-female'
+    'option-language-vi', 'option-gender-male', 'option-gender-female',
+    'profile-relationship', 'option-relationship-private', 'option-relationship-single',
+    'option-relationship-love', 'option-relationship-married', 'option-relationship-divorced'
   ];
 
-  var FALLBACK = {};
+  var FALLBACK = {
+    'profile-relationship': '感情状况',
+    'option-relationship-private': '保密',
+    'option-relationship-single': '单身',
+    'option-relationship-love': '热恋',
+    'option-relationship-married': '已婚',
+    'option-relationship-divorced': '离异'
+  };
 
   function bp() {
     return (window.config && window.config.relative_path) || '';
@@ -198,6 +207,24 @@
     return '<span class="peipe-meta-pill ' + cls + '">' + parts.join('') + '</span>';
   }
 
+
+  function relationshipText(user) {
+    if (!user) return '';
+    var key = user.relationshipKey || '';
+    var raw = user.relationshipStatus || user.relationship_status || '';
+    var text = key ? t(key) : raw;
+    if (!text || text === '保密' || text === 'Private' || text === 'Riêng tư' || text === 'မပြပါ') return '';
+    var emoji = user.relationshipEmoji || '';
+    if (emoji && text.indexOf(emoji) !== 0) text = emoji + ' ' + text;
+    return text;
+  }
+
+  function relationshipPill(user) {
+    var text = relationshipText(user);
+    if (!text) return '';
+    return '<span class="peipe-relationship-pill">' + escapeHtml(text) + '</span>';
+  }
+
   function distanceLabel(user) {
     if (STATE.mode !== 'nearby') return '';
     var key = user.distanceBucket ? 'distance-' + user.distanceBucket : '';
@@ -231,6 +258,7 @@
             '<div class="peipe-name-row">' +
               '<span class="peipe-name">' + escapeHtml(user.username || 'User') + '</span>' +
               metaPill(user) +
+              relationshipPill(user) +
             '</div>' +
             '<div class="peipe-langs">' +
               '<span class="native">' + escapeHtml(user.nativeCode || '-') + '</span>' +
@@ -554,7 +582,7 @@
       text = option.textLabel || option.label || option.value || '';
     }
 
-    var emoji = option.flagEmoji || '';
+    var emoji = option.flagEmoji || option.emoji || '';
     if (emoji && text.indexOf(emoji) !== 0) {
       text = emoji + ' ' + text.replace(emoji, '').trim();
     }
@@ -579,6 +607,10 @@
         .map(function (item) { return item.trim(); })
         .filter(Boolean);
     }
+  }
+
+  function firstValue(value) {
+    return parseValues(value)[0] || '';
   }
 
   function findOption(optionsList, value) {
@@ -621,9 +653,7 @@
     var input = modal.querySelector('input[name="' + config.name + '"]');
     var currentValues = parseValues(input && input.value);
     var selectedSet = {};
-    currentValues.forEach(function (value) {
-      selectedSet[value] = true;
-    });
+    currentValues.forEach(function (value) { selectedSet[value] = true; });
 
     var picker = document.createElement('div');
     picker.className = 'peipe-picker-mask';
@@ -704,6 +734,7 @@
           buildChoice('language_fluent', t('profile-native'), STATE.options.languages, parseValues(profile.language_fluent), true) +
           buildChoice('language_learning', t('profile-learning'), STATE.options.languages, parseValues(profile.language_learning), true) +
           buildChoice('gender', t('profile-gender'), STATE.options.genders, profile.gender, false) +
+          buildChoice('relationship_status', t('profile-relationship'), STATE.options.relationships || [], profile.relationship_status || '保密', false) +
           '<label class="peipe-profile-field peipe-age-field"><span>' + escapeHtml(t('profile-age')) + '</span><input name="age" type="number" min="13" max="99" inputmode="numeric" value="' + escapeHtml(profile.age || '') + '" placeholder="' + escapeHtml(t('profile-age-placeholder')) + '"></label>' +
           '<div class="peipe-profile-error" hidden></div>' +
           '<button class="peipe-profile-submit" type="submit">' + escapeHtml(t('profile-save')) + '</button>' +
@@ -715,7 +746,8 @@
       language_flag: { name: 'language_flag', label: t('profile-country'), options: STATE.options.countries, multiple: false },
       language_fluent: { name: 'language_fluent', label: t('profile-native'), options: STATE.options.languages, multiple: true },
       language_learning: { name: 'language_learning', label: t('profile-learning'), options: STATE.options.languages, multiple: true },
-      gender: { name: 'gender', label: t('profile-gender'), options: STATE.options.genders, multiple: false }
+      gender: { name: 'gender', label: t('profile-gender'), options: STATE.options.genders, multiple: false },
+      relationship_status: { name: 'relationship_status', label: t('profile-relationship'), options: STATE.options.relationships || [], multiple: false }
     };
 
     modal.addEventListener('click', function (event) {
@@ -744,6 +776,7 @@
 
       payload.language_fluent = JSON.stringify(nativeValues);
       payload.language_learning = JSON.stringify(learningValues);
+      payload.relationship_status = payload.relationship_status || '保密';
 
       var btn = form.querySelector('button[type="submit"]');
       btn.disabled = true;
@@ -773,9 +806,7 @@
   function maybeShowProfileModal() {
     if (!hasUser()) return Promise.resolve();
     return fetchJson('/api/peipe-partners/options').then(function (data) {
-      if (data && data.i18n) {
-        STATE.i18n = Object.assign({}, STATE.i18n, data.i18n);
-      }
+      if (data && data.i18n) STATE.i18n = Object.assign({}, STATE.i18n, data.i18n);
       STATE.options = data.options || data;
       return fetchJson('/api/peipe-partners/me/profile-status');
     }).then(function (status) {
@@ -795,6 +826,8 @@
     bindImages();
     setupSwipe();
   }
+
+
 
   function start() {
     STATE.root = document.querySelector('.peipe-partners-page');
