@@ -1,0 +1,28 @@
+{
+  "name": "nodebb-plugin-peipe-partners",
+  "version": "1.1.0",
+  "description": "语伴和附近的人包含批量接口",
+  "main": "library.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hurt6465-ai/nodebb-plugin-peipe-partners"
+  },
+  "keywords": [
+    "nodebb",
+    "plugin",
+    "peipe",
+    "language-partners",
+    "nearby"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Hurt6465-ai/nodebb-plugin-peipe-partners/issues"
+  },
+  "readmeFilename": "README.md",
+  "nbbpm": {
+    "compatibility": "^3.2.0"
+  },
+  "scripts": {
+    "syntax": "node -c library.js && node -c lib/partner.js && node -c public/lib/peipe-partners.js"
+  }
+}
