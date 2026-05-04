@@ -1,53 +1,24 @@
 {
   "countries": [
-    {
-      "value": "中国",
-      "code": "cn",
-      "key": "option-country-cn"
-    },
-    {
-      "value": "缅甸",
-      "code": "mm",
-      "key": "option-country-mm"
-    },
-    {
-      "value": "越南",
-      "code": "vn",
-      "key": "option-country-vn"
-    },
-    {
-      "value": "新加坡",
-      "code": "sg",
-      "key": "option-country-sg"
-    }
+    { "value": "中国", "code": "cn", "key": "option-country-cn" },
+    { "value": "缅甸", "code": "mm", "key": "option-country-mm" },
+    { "value": "越南", "code": "vn", "key": "option-country-vn" },
+    { "value": "新加坡", "code": "sg", "key": "option-country-sg" }
   ],
   "languages": [
-    {
-      "value": "中文",
-      "code": "CN",
-      "key": "option-language-cn"
-    },
-    {
-      "value": "缅甸语",
-      "code": "MM",
-      "key": "option-language-mm"
-    },
-    {
-      "value": "越南语",
-      "code": "VI",
-      "key": "option-language-vi"
-    }
+    { "value": "中文", "code": "CN", "key": "option-language-cn" },
+    { "value": "缅甸语", "code": "MM", "key": "option-language-mm" },
+    { "value": "越南语", "code": "VI", "key": "option-language-vi" }
   ],
   "genders": [
-    {
-      "value": "男",
-      "code": "M",
-      "key": "option-gender-male"
-    },
-    {
-      "value": "女",
-      "code": "F",
-      "key": "option-gender-female"
-    }
+    { "value": "男", "code": "M", "key": "option-gender-male" },
+    { "value": "女", "code": "F", "key": "option-gender-female" }
+  ],
+  "relationships": [
+    { "value": "保密", "key": "option-relationship-private", "emoji": "🔒" },
+    { "value": "单身", "key": "option-relationship-single", "emoji": "💛" },
+    { "value": "热恋", "key": "option-relationship-love", "emoji": "💞" },
+    { "value": "已婚", "key": "option-relationship-married", "emoji": "💍" },
+    { "value": "离异", "key": "option-relationship-divorced", "emoji": "🕊️" }
   ]
 }
