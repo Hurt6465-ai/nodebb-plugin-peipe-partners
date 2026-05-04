@@ -66,21 +66,28 @@
   background: #fff;
 }
 
+/* 高级磨砂玻璃卡片：暖黄 + 灰蓝 + 边缘光 */
 .peipe-partner-card {
   position: relative;
   display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 96px;
+  align-items: stretch;
+  gap: 8px;
+  min-height: auto;
   margin-bottom: 11px;
-  padding: 12px;
-  border: 1px solid rgba(228, 233, 242, .88);
-  border-radius: 21px;
+  padding: 12px 10px 12px 12px;
+  border: 1px solid rgba(255, 255, 255, .72);
+  border-radius: 22px;
   background:
-    radial-gradient(circle at 12% 8%, rgba(255, 245, 184, .46) 0, rgba(255, 245, 184, 0) 36%),
-    radial-gradient(circle at 100% 0%, rgba(222, 238, 255, .56) 0, rgba(222, 238, 255, 0) 38%),
-    linear-gradient(145deg, rgba(255,255,255,.96) 0%, rgba(255,252,243,.9) 55%, rgba(248,251,255,.96) 100%);
-  box-shadow: 0 10px 28px rgba(16, 24, 40, .065), 0 2px 8px rgba(16, 24, 40, .045);
+    radial-gradient(circle at 10% 6%, rgba(255, 225, 128, .48) 0, rgba(255, 225, 128, 0) 38%),
+    radial-gradient(circle at 100% 0%, rgba(205, 216, 228, .58) 0, rgba(205, 216, 228, 0) 42%),
+    linear-gradient(145deg, rgba(255, 255, 255, .72) 0%, rgba(255, 249, 234, .60) 52%, rgba(244, 248, 252, .72) 100%);
+  box-shadow:
+    0 14px 36px rgba(15, 23, 42, .075),
+    0 3px 10px rgba(15, 23, 42, .05),
+    inset 0 1px 0 rgba(255, 255, 255, .88),
+    inset 0 -1px 0 rgba(255, 255, 255, .38);
+  backdrop-filter: blur(18px) saturate(1.12);
+  -webkit-backdrop-filter: blur(18px) saturate(1.12);
   overflow: hidden;
 }
 
@@ -90,7 +97,20 @@
   inset: 0;
   pointer-events: none;
   border-radius: inherit;
-  background: linear-gradient(180deg, rgba(255,255,255,.52), rgba(255,255,255,0));
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .58), rgba(255, 255, 255, 0) 52%),
+    linear-gradient(90deg, rgba(255, 255, 255, .48), rgba(255, 255, 255, 0) 26%, rgba(255, 255, 255, .28) 100%);
+}
+
+.peipe-partner-card::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  pointer-events: none;
+  border-radius: 21px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, .62),
+    inset 0 0 22px rgba(255, 255, 255, .32);
 }
 
 .peipe-card-main,
@@ -98,7 +118,7 @@
 .peipe-card-main:focus {
   position: relative;
   z-index: 1;
-  flex: 1;
+  flex: 1 1 auto;
   min-width: 0;
   display: flex;
   color: inherit;
@@ -107,9 +127,9 @@
 }
 
 .peipe-left {
-  width: 57px;
-  margin-right: 12px;
-  flex: 0 0 57px;
+  width: 56px;
+  margin-right: 10px;
+  flex: 0 0 56px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -129,8 +149,8 @@
   border-radius: 50%;
   object-fit: cover;
   background: #eef0f3;
-  border: 1px solid rgba(255, 255, 255, .86);
-  box-shadow: 0 3px 10px rgba(15, 23, 42, .08);
+  border: 1px solid rgba(255, 255, 255, .9);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, .10);
 }
 
 .peipe-flag-emoji {
@@ -179,9 +199,10 @@
 }
 
 .peipe-card-body {
-  flex: 1;
+  flex: 1 1 auto;
   min-width: 0;
   padding-top: 1px;
+  padding-right: 2px;
 }
 
 .peipe-name-row {
@@ -198,7 +219,7 @@
   display: inline-block;
   font-size: 17.5px;
   line-height: 1.35;
-  font-weight: 800;
+  font-weight: 850;
   color: #1f2937;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -277,24 +298,29 @@
   font-size: 10px;
 }
 
+/* 介绍文字自适应高度：没内容不占位，有内容自然撑开 */
 .peipe-bio {
   max-width: 100%;
-  overflow: hidden;
+  overflow: visible;
   white-space: normal;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  display: block;
   font-size: 13.5px;
-  line-height: 1.42;
+  line-height: 1.46;
   color: #68707d;
-  min-height: 38px;
+  min-height: 0;
+  margin-top: 2px;
+  word-break: break-word;
+}
+
+.peipe-bio:empty {
+  display: none;
 }
 
 .peipe-side {
   position: relative;
   z-index: 1;
-  width: 78px;
-  flex: 0 0 78px;
+  width: 66px;
+  flex: 0 0 66px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -302,26 +328,51 @@
   padding-top: 2px;
 }
 
+/* 打招呼按钮：👋 HI */
 .peipe-greet-btn {
-  width: 58px;
-  height: 48px;
+  width: 62px;
+  height: 42px;
   border: 0;
   border-radius: 999px;
-  background: transparent;
-  color: #ff5ca6;
+  background:
+    linear-gradient(135deg, rgba(255, 240, 164, .96), rgba(255, 198, 0, .95));
+  color: #171717;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 4px;
   cursor: pointer;
   user-select: none;
   outline: none;
-  box-shadow: none;
-  transition: transform .12s ease, opacity .12s ease;
+  box-shadow:
+    0 10px 22px rgba(255, 198, 0, .26),
+    0 3px 8px rgba(15, 23, 42, .08),
+    inset 0 1px 0 rgba(255, 255, 255, .75);
+  transition: transform .12s ease, opacity .12s ease, box-shadow .12s ease;
   -webkit-tap-highlight-color: transparent;
+}
+
+.peipe-greet-btn::before {
+  content: "👋";
+  font-size: 17px;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+
+.peipe-greet-btn::after {
+  content: "HI";
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: .02em;
 }
 
 .peipe-greet-btn:active {
   transform: scale(.96);
+  box-shadow:
+    0 7px 16px rgba(255, 198, 0, .22),
+    0 2px 6px rgba(15, 23, 42, .08),
+    inset 0 1px 0 rgba(255, 255, 255, .7);
 }
 
 .peipe-greet-btn.loading {
@@ -330,24 +381,21 @@
 }
 
 .peipe-send-svg {
-  width: 29px;
-  height: 29px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  filter: drop-shadow(0 2px 4px rgba(255,92,166,.34));
-  transform: rotate(17deg) translateX(1px);
+  display: none !important;
 }
 
 .peipe-btn-spinner {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 92, 166, .18);
-  border-top-color: #ff5ca6;
+  border: 2px solid rgba(23, 23, 23, .14);
+  border-top-color: #171717;
   animation: peipe-spin .75s linear infinite;
+}
+
+.peipe-greet-btn.loading::before,
+.peipe-greet-btn.loading::after {
+  display: none;
 }
 
 @keyframes peipe-spin {
@@ -355,7 +403,7 @@
 }
 
 .peipe-distance {
-  margin-top: 9px;
+  margin-top: 8px;
   min-height: 14px;
   display: inline-flex;
   align-items: center;
@@ -476,15 +524,15 @@
 }
 
 .peipe-skeleton-side {
-  width: 78px;
+  width: 66px;
   flex-shrink: 0;
   display: flex;
   justify-content: center;
 }
 
 .peipe-skeleton-button {
-  width: 58px;
-  height: 48px;
+  width: 62px;
+  height: 42px;
   border-radius: 999px;
 }
 
@@ -614,7 +662,9 @@
   box-shadow: 0 12px 28px rgba(255, 196, 0, .25);
 }
 
-.peipe-profile-submit:disabled { opacity: .68; }
+.peipe-profile-submit:disabled {
+  opacity: .68;
+}
 
 .peipe-picker-mask {
   position: absolute;
@@ -742,15 +792,54 @@
 }
 
 @media (max-width: 360px) {
-  .peipe-partner-card { padding: 10px; gap: 8px; }
-  .peipe-left { width: 54px; flex-basis: 54px; margin-right: 8px; }
-  .peipe-avatar-wrap, .peipe-avatar { width: 50px; height: 50px; }
-  .peipe-side { width: 62px; flex-basis: 62px; }
-  .peipe-name { font-size: 16.5px; }
-  .peipe-bio { font-size: 13px; }
-  .peipe-profile-form { grid-template-columns: 1fr; }
-}
+  .peipe-partner-card {
+    padding: 10px 8px 10px 10px;
+    gap: 6px;
+  }
 
+  .peipe-left {
+    width: 52px;
+    flex-basis: 52px;
+    margin-right: 8px;
+  }
+
+  .peipe-avatar-wrap,
+  .peipe-avatar {
+    width: 50px;
+    height: 50px;
+  }
+
+  .peipe-side {
+    width: 58px;
+    flex-basis: 58px;
+  }
+
+  .peipe-greet-btn {
+    width: 56px;
+    height: 40px;
+  }
+
+  .peipe-greet-btn::before {
+    font-size: 16px;
+  }
+
+  .peipe-greet-btn::after {
+    font-size: 11px;
+  }
+
+  .peipe-name {
+    font-size: 16.5px;
+  }
+
+  .peipe-bio {
+    font-size: 13px;
+    line-height: 1.44;
+  }
+
+  .peipe-profile-form {
+    grid-template-columns: 1fr;
+  }
+}
 
 /* v1.1.3 profile modal refinements: single column, readable flags, multi-select picker */
 .peipe-profile-sheet {
