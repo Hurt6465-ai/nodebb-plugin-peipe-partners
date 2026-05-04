@@ -996,4 +996,16 @@
     border-radius: 7px;
     font-size: 10.5px;
   }
+
+  /* 顶部切换：去掉选中下横线 */
+.peipe-nav-item.active {
+  color: #111827;
+  font-size: 18px;
+  font-weight: 850;
+}
+
+.peipe-nav-item.active::after {
+  display: none !important;
+  content: none !important;
+  }
 }
