@@ -53,6 +53,19 @@
   ];
 
   var FALLBACK = {
+    'profile-title': '完善语伴资料',
+  'profile-subtitle': '填写后可以更准确地为你推荐语伴和附近的人',
+  'profile-country': '国籍',
+  'profile-native': '母语',
+  'profile-learning': '想学的语言',
+  'profile-gender': '性别',
+  'profile-age': '年龄',
+  'profile-age-placeholder': '请输入年龄',
+  'profile-save': '保存资料',
+  'profile-saving': '保存中...',
+  'profile-required': '请完整填写资料',
+  'profile-error': '保存失败，请稍后重试',
+  'profile-select-placeholder': '请选择',
     'profile-relationship': '感情状况',
     'option-relationship-private': '保密',
     'option-relationship-single': '单身',
