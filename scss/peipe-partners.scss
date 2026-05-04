@@ -18,7 +18,7 @@
   background: rgba(255, 255, 255, .92);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  box-shadow: 0 1px 0 rgba(15, 23, 42, .045);
+  box-shadow: 0 1px 0 rgba(15, 23, 42, .06);
 }
 
 .peipe-partners-nav {
@@ -62,111 +62,88 @@
 }
 
 .peipe-partners-list {
-  padding: 14px 12px 20px;
+  padding: 12px 12px 18px;
   background: #fff;
 }
 
-/* Premium breathable list cards with varied gradient hairline borders */
+/* 卡片：轻盈渐变细描边 + 弥散阴影 */
 .peipe-partner-card {
-  --peipe-card-edge-1: rgba(255, 218, 112, .56);
-  --peipe-card-edge-2: rgba(190, 204, 224, .46);
-  --peipe-card-edge-3: rgba(255, 255, 255, .72);
-  --peipe-card-glow-1: rgba(255, 228, 143, .30);
-  --peipe-card-glow-2: rgba(208, 221, 238, .34);
-
   position: relative;
   display: flex;
   align-items: stretch;
-  gap: 10px;
+  gap: 8px;
   min-height: auto;
-  margin-bottom: 14px;
-  padding: 14px 12px 14px 13px;
-  border: 1px solid transparent;
-  border-radius: 24px;
+  margin-bottom: 13px;
+  padding: 13px 10px 13px 12px;
+  border-radius: 22px;
+  border: 1px solid rgba(238, 241, 246, .88);
   background:
-    radial-gradient(circle at 8% 0%, var(--peipe-card-glow-1) 0, rgba(255, 255, 255, 0) 36%) padding-box,
-    radial-gradient(circle at 100% 4%, var(--peipe-card-glow-2) 0, rgba(255, 255, 255, 0) 42%) padding-box,
-    linear-gradient(145deg, rgba(255, 255, 255, .84) 0%, rgba(255, 252, 244, .68) 52%, rgba(248, 251, 255, .78) 100%) padding-box,
-    linear-gradient(135deg, var(--peipe-card-edge-1), var(--peipe-card-edge-2) 48%, var(--peipe-card-edge-3)) border-box;
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(135deg, rgba(178, 168, 255, .42), rgba(255, 224, 145, .36), rgba(191, 229, 214, .34)) border-box;
   box-shadow:
-    0 18px 46px rgba(15, 23, 42, .052),
-    0 6px 18px rgba(15, 23, 42, .032);
-  backdrop-filter: blur(18px) saturate(1.08);
-  -webkit-backdrop-filter: blur(18px) saturate(1.08);
+    0 18px 46px rgba(15, 23, 42, .055),
+    0 6px 18px rgba(15, 23, 42, .035);
   overflow: hidden;
   isolation: isolate;
 }
 
-.peipe-partner-card:nth-child(6n + 1) {
-  --peipe-card-edge-1: rgba(255, 218, 112, .62);
-  --peipe-card-edge-2: rgba(191, 203, 224, .48);
-  --peipe-card-edge-3: rgba(255, 255, 255, .78);
-  --peipe-card-glow-1: rgba(255, 227, 139, .32);
-  --peipe-card-glow-2: rgba(210, 222, 238, .34);
-}
-
-.peipe-partner-card:nth-child(6n + 2) {
-  --peipe-card-edge-1: rgba(196, 181, 253, .58);
-  --peipe-card-edge-2: rgba(252, 211, 177, .44);
-  --peipe-card-edge-3: rgba(255, 255, 255, .76);
-  --peipe-card-glow-1: rgba(216, 205, 255, .24);
-  --peipe-card-glow-2: rgba(255, 228, 200, .28);
-}
-
-.peipe-partner-card:nth-child(6n + 3) {
-  --peipe-card-edge-1: rgba(167, 214, 202, .58);
-  --peipe-card-edge-2: rgba(255, 221, 148, .48);
-  --peipe-card-edge-3: rgba(255, 255, 255, .76);
-  --peipe-card-glow-1: rgba(191, 230, 221, .26);
-  --peipe-card-glow-2: rgba(255, 227, 158, .28);
-}
-
-.peipe-partner-card:nth-child(6n + 4) {
-  --peipe-card-edge-1: rgba(186, 211, 255, .58);
-  --peipe-card-edge-2: rgba(245, 194, 219, .42);
-  --peipe-card-edge-3: rgba(255, 255, 255, .76);
-  --peipe-card-glow-1: rgba(208, 226, 255, .28);
-  --peipe-card-glow-2: rgba(255, 218, 235, .24);
-}
-
-.peipe-partner-card:nth-child(6n + 5) {
-  --peipe-card-edge-1: rgba(255, 205, 171, .58);
-  --peipe-card-edge-2: rgba(197, 215, 234, .46);
-  --peipe-card-edge-3: rgba(255, 255, 255, .76);
-  --peipe-card-glow-1: rgba(255, 224, 202, .28);
-  --peipe-card-glow-2: rgba(214, 226, 240, .30);
-}
-
-.peipe-partner-card:nth-child(6n) {
-  --peipe-card-edge-1: rgba(210, 200, 255, .56);
-  --peipe-card-edge-2: rgba(183, 225, 218, .42);
-  --peipe-card-edge-3: rgba(255, 255, 255, .78);
-  --peipe-card-glow-1: rgba(221, 214, 255, .24);
-  --peipe-card-glow-2: rgba(206, 235, 229, .25);
-}
-
+/* 卡片内部淡淡的呼吸背景 */
 .peipe-partner-card::before {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: 1px;
   z-index: 0;
   pointer-events: none;
-  border-radius: inherit;
+  border-radius: 21px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, .50), rgba(255, 255, 255, 0) 48%),
-    linear-gradient(90deg, rgba(255, 255, 255, .34), rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, .20) 100%);
+    radial-gradient(circle at 8% 8%, rgba(255, 228, 158, .32), transparent 38%),
+    radial-gradient(circle at 96% 4%, rgba(198, 191, 255, .22), transparent 34%),
+    radial-gradient(circle at 90% 92%, rgba(191, 229, 214, .18), transparent 36%),
+    linear-gradient(145deg, rgba(255,255,255,.88), rgba(255,252,245,.72) 52%, rgba(249,251,255,.78));
 }
 
+/* 顶部微光，不做厚重玻璃 */
 .peipe-partner-card::after {
   content: "";
   position: absolute;
   inset: 1px;
   z-index: 0;
   pointer-events: none;
-  border-radius: 23px;
+  border-radius: 21px;
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, .55),
-    inset 0 8px 20px rgba(255, 255, 255, .20);
+    inset 0 1px 0 rgba(255,255,255,.88),
+    inset 0 0 0 1px rgba(255,255,255,.36);
+}
+
+/* 每张卡片渐变略有不同 */
+.peipe-partner-card:nth-child(6n + 1) {
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(135deg, rgba(178, 168, 255, .46), rgba(255, 224, 145, .34), rgba(191, 229, 214, .26)) border-box;
+}
+
+.peipe-partner-card:nth-child(6n + 2) {
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(135deg, rgba(167, 220, 198, .44), rgba(255, 230, 150, .30), rgba(193, 182, 255, .30)) border-box;
+}
+
+.peipe-partner-card:nth-child(6n + 3) {
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(135deg, rgba(184, 211, 255, .44), rgba(255, 210, 222, .30), rgba(255, 226, 158, .28)) border-box;
+}
+
+.peipe-partner-card:nth-child(6n + 4) {
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(135deg, rgba(255, 211, 174, .40), rgba(196, 226, 255, .30), rgba(222, 211, 255, .30)) border-box;
+}
+
+.peipe-partner-card:nth-child(6n + 5) {
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(135deg, rgba(214, 204, 255, .42), rgba(191, 232, 220, .30), rgba(255, 224, 145, .26)) border-box;
 }
 
 .peipe-card-main,
@@ -201,64 +178,40 @@
 .peipe-avatar {
   width: 56px;
   height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   border-radius: 50%;
   object-fit: cover;
   background:
-    radial-gradient(circle at 28% 18%, rgba(255, 255, 255, .68), rgba(255, 255, 255, 0) 34%),
-    linear-gradient(145deg, #f6d7df 0%, #dcd7fb 48%, #d9ecf4 100%);
-  color: rgba(72, 78, 92, .72);
-  border: 1.5px solid rgba(255, 255, 255, .94);
+    linear-gradient(135deg, #f6e7ff 0%, #e6f3ff 48%, #fff1d8 100%);
+  border: 1px solid rgba(255, 255, 255, .9);
   box-shadow:
-    0 10px 22px rgba(15, 23, 42, .085),
-    inset 0 1px 0 rgba(255, 255, 255, .72);
-  font-size: 15px;
-  line-height: 1;
-  font-weight: 780;
-  letter-spacing: -.02em;
-  text-transform: uppercase;
-  overflow: hidden;
+    0 8px 18px rgba(15, 23, 42, .08),
+    inset 0 1px 0 rgba(255,255,255,.72);
 }
 
-.peipe-avatar-wrap:nth-child(3n + 1) .peipe-avatar,
-.peipe-partner-card:nth-child(3n + 1) .peipe-avatar {
-  background:
-    radial-gradient(circle at 28% 18%, rgba(255, 255, 255, .68), rgba(255, 255, 255, 0) 34%),
-    linear-gradient(145deg, #f8d6cf 0%, #efe3c6 48%, #d8e8f5 100%);
+/* 默认头像文字更轻一点 */
+.peipe-avatar-wrap .peipe-avatar,
+.peipe-avatar {
+  font-size: 24px;
+  font-weight: 650;
+  letter-spacing: -.03em;
 }
 
-.peipe-partner-card:nth-child(3n + 2) .peipe-avatar {
-  background:
-    radial-gradient(circle at 28% 18%, rgba(255, 255, 255, .68), rgba(255, 255, 255, 0) 34%),
-    linear-gradient(145deg, #d8e8ff 0%, #e4dcfb 50%, #f5ddea 100%);
-}
-
-.peipe-partner-card:nth-child(3n) .peipe-avatar {
-  background:
-    radial-gradient(circle at 28% 18%, rgba(255, 255, 255, .68), rgba(255, 255, 255, 0) 34%),
-    linear-gradient(145deg, #d7efe5 0%, #f5e4c9 50%, #e4ddf4 100%);
-}
-
+/* 国旗：不要边框，不要白底，直接贴在头像上 */
 .peipe-flag-emoji {
   position: absolute;
   left: -2px;
   bottom: -2px;
   z-index: 3;
-  width: 24px;
-  height: 24px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  font-size: 16px;
+  display: block;
+  font-size: 19px;
   line-height: 1;
   font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
-  background: rgba(255, 255, 255, .92) !important;
-  border: 2px solid rgba(255, 255, 255, .96) !important;
-  box-shadow: 0 5px 12px rgba(15, 23, 42, .12) !important;
-  text-shadow: none;
+  background: transparent !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .12);
 }
 
 .peipe-online-dot {
@@ -271,11 +224,11 @@
   border-radius: 50%;
   background: #2fb344;
   border: 1.5px solid #fff;
-  box-shadow: 0 0 0 1px rgba(47, 179, 68, .16), 0 2px 5px rgba(47, 179, 68, .20);
+  box-shadow: 0 0 0 1px rgba(47, 179, 68, .16);
 }
 
 .peipe-status {
-  max-width: 66px;
+  max-width: 68px;
   min-height: 13px;
   font-size: 10px;
   line-height: 1.25;
@@ -295,7 +248,7 @@
   flex: 1 1 auto;
   min-width: 0;
   padding-top: 1px;
-  padding-right: 3px;
+  padding-right: 2px;
 }
 
 .peipe-name-row {
@@ -314,45 +267,47 @@
   line-height: 1.32;
   font-weight: 850;
   color: #1f2937;
-  letter-spacing: -.018em;
+  letter-spacing: -.025em;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   padding-bottom: 1px;
 }
 
+/* 年龄气囊：不要药丸，改成小圆角精致标签 */
 .peipe-meta-pill {
   flex: 0 0 auto;
-  height: 20px;
-  min-width: 25px;
+  height: 22px;
+  min-width: 28px;
   padding: 0 7px;
-  border-radius: 999px;
+  border-radius: 8px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 3px;
-  font-size: 10.5px;
+  font-size: 11px;
   line-height: 1;
   font-weight: 800;
   border: 1px solid transparent;
+  box-shadow: none;
 }
 
 .peipe-meta-pill.male {
-  color: #2563c9;
-  background: #eaf4ff;
-  border-color: #dbeafe;
+  color: #2563eb;
+  background: rgba(224, 240, 255, .82);
+  border-color: rgba(177, 214, 255, .58);
 }
 
 .peipe-meta-pill.female {
-  color: #c73577;
-  background: #ffeaf3;
-  border-color: #ffd8e8;
+  color: #cf3d83;
+  background: rgba(255, 228, 238, .86);
+  border-color: rgba(248, 190, 214, .50);
 }
 
 .peipe-meta-pill.neutral {
-  color: #667085;
-  background: #f3f4f6;
-  border-color: #e8eaef;
+  color: #6b7280;
+  background: rgba(243, 244, 246, .84);
+  border-color: rgba(229, 231, 235, .84);
 }
 
 .peipe-gender-svg {
@@ -361,7 +316,7 @@
   display: block;
   fill: none;
   stroke: currentColor;
-  stroke-width: 2;
+  stroke-width: 2.1;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -370,7 +325,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
   font-size: 12px;
   line-height: 1.25;
 }
@@ -398,32 +353,28 @@
   white-space: normal;
   display: block;
   font-size: 13.5px;
-  line-height: 1.48;
+  line-height: 1.46;
   color: #68707d;
   min-height: 0;
-  margin-top: 3px;
+  margin-top: 2px;
   word-break: break-word;
-}
-
-.peipe-bio:empty,
-.peipe-bio.no-bio,
-.peipe-bio.is-empty,
-.peipe-bio[data-empty="true"] {
-  font-size: 0;
-  line-height: 0;
 }
 
 .peipe-bio:empty::before,
 .peipe-bio.no-bio::before,
 .peipe-bio.is-empty::before,
 .peipe-bio[data-empty="true"]::before {
-  content: "\8FD9\4E2A\4EBA\5F88\61D2\FF0C\4EC0\4E48\90FD\6CA1\7559\4E0B~";
+  content: "暂无介绍";
+  color: #9ca3af;
+  font-style: normal;
+}
+
+.peipe-bio:empty,
+.peipe-bio.no-bio,
+.peipe-bio.is-empty,
+.peipe-bio[data-empty="true"] {
   display: block;
-  font-size: 13px;
-  line-height: 1.46;
-  color: #a1a8b3;
-  font-style: italic;
-  font-weight: 500;
+  color: transparent;
 }
 
 .peipe-side {
@@ -438,15 +389,16 @@
   padding-top: 2px;
 }
 
-/* Flat premium greeting button */
+/* 打招呼按钮：浅紫渐变、平扁化、👋 Hi */
 .peipe-greet-btn {
   position: relative;
   width: 62px;
-  height: 40px;
+  height: 41px;
   border: 0;
-  border-radius: 14px;
+  border-radius: 15px;
   overflow: hidden;
-  background: #8d80c7;
+  background:
+    linear-gradient(135deg, #a99be8 0%, #8f7ed4 100%);
   color: #fff;
   display: inline-flex;
   align-items: center;
@@ -455,44 +407,41 @@
   cursor: pointer;
   user-select: none;
   outline: none;
-  box-shadow: 0 10px 22px rgba(99, 86, 160, .16);
-  transition: transform .14s ease, opacity .14s ease, box-shadow .14s ease, background-color .14s ease;
+  box-shadow: none;
+  transition:
+    transform .12s ease,
+    opacity .12s ease,
+    filter .12s ease;
   -webkit-tap-highlight-color: transparent;
 }
 
+/* 去掉拟物高光，只留非常淡的平面层次 */
 .peipe-greet-btn::before {
-  content: "\270B\FE0E";
+  content: "👋";
   position: relative;
   z-index: 1;
-  color: #fff;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1;
-  font-family: "Segoe UI Symbol", "Apple Symbols", "Arial Unicode MS", sans-serif;
-  font-weight: 700;
-  transform: translateY(-1px) rotate(-8deg);
+  transform: translateY(-1px);
 }
 
 .peipe-greet-btn::after {
-  content: "HI";
+  content: "Hi";
   position: relative;
   z-index: 1;
   color: #fff;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1;
-  font-weight: 900;
+  font-weight: 850;
   font-style: italic;
-  letter-spacing: .035em;
-  transform: skewX(-9deg) rotate(-3deg) translateY(.5px);
+  letter-spacing: .01em;
+  transform: skewX(-8deg) translateY(.5px);
   transform-origin: center;
 }
 
-.peipe-greet-btn:hover {
-  background: #8275be;
-}
-
 .peipe-greet-btn:active {
-  transform: scale(.965) translateY(1px);
-  box-shadow: 0 6px 14px rgba(99, 86, 160, .14);
+  transform: scale(.96);
+  filter: brightness(.98);
 }
 
 .peipe-greet-btn.loading {
@@ -519,7 +468,9 @@
 }
 
 @keyframes peipe-spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .peipe-distance {
@@ -560,22 +511,23 @@
   height: 1px;
 }
 
+/* Skeleton */
 .peipe-skeleton-card {
   display: flex;
   align-items: center;
   gap: 10px;
-  min-height: 98px;
-  margin-bottom: 14px;
-  padding: 14px 12px;
-  border-radius: 24px;
-  border: 1px solid rgba(238, 241, 246, .96);
+  min-height: 96px;
+  margin-bottom: 11px;
+  padding: 12px;
+  border-radius: 21px;
+  border: 1px solid rgba(228, 233, 242, .88);
   background: #fff;
-  box-shadow: 0 14px 34px rgba(16, 24, 40, .035);
+  box-shadow: 0 12px 34px rgba(16, 24, 40, .045);
 }
 
 .peipe-skeleton-left {
-  width: 58px;
-  margin-right: 11px;
+  width: 57px;
+  margin-right: 12px;
   flex-shrink: 0;
 }
 
@@ -603,12 +555,14 @@
 }
 
 @keyframes peipe-shimmer {
-  100% { left: 140%; }
+  100% {
+    left: 140%;
+  }
 }
 
 .peipe-skeleton-avatar {
-  width: 56px;
-  height: 56px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
   margin-bottom: 7px;
 }
@@ -652,10 +606,11 @@
 
 .peipe-skeleton-button {
   width: 62px;
-  height: 40px;
-  border-radius: 14px;
+  height: 41px;
+  border-radius: 15px;
 }
 
+/* Profile Modal */
 .peipe-profile-mask {
   position: fixed;
   z-index: 99999;
@@ -985,19 +940,15 @@
 }
 
 @media (max-width: 360px) {
-  .peipe-partners-list {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
   .peipe-partner-card {
-    padding: 12px 9px 12px 10px;
-    gap: 7px;
-    border-radius: 22px;
+    padding: 11px 8px 11px 10px;
+    gap: 6px;
+    border-radius: 20px;
   }
 
+  .peipe-partner-card::before,
   .peipe-partner-card::after {
-    border-radius: 21px;
+    border-radius: 19px;
   }
 
   .peipe-left {
@@ -1012,16 +963,6 @@
     height: 50px;
   }
 
-  .peipe-avatar {
-    font-size: 14px;
-  }
-
-  .peipe-flag-emoji {
-    width: 22px;
-    height: 22px;
-    font-size: 15px;
-  }
-
   .peipe-side {
     width: 58px;
     flex-basis: 58px;
@@ -1029,16 +970,16 @@
 
   .peipe-greet-btn {
     width: 56px;
-    height: 38px;
-    border-radius: 13px;
+    height: 39px;
+    border-radius: 14px;
   }
 
   .peipe-greet-btn::before {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .peipe-greet-btn::after {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .peipe-name {
@@ -1050,7 +991,9 @@
     line-height: 1.44;
   }
 
-  .peipe-profile-form {
-    grid-template-columns: 1fr;
+  .peipe-meta-pill {
+    height: 21px;
+    border-radius: 7px;
+    font-size: 10.5px;
   }
 }
