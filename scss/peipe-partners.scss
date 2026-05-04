@@ -18,7 +18,7 @@
   background: rgba(255, 255, 255, .92);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  box-shadow: 0 1px 0 rgba(15, 23, 42, .06);
+  box-shadow: 0 1px 0 rgba(15, 23, 42, .045);
 }
 
 .peipe-partners-nav {
@@ -62,55 +62,111 @@
 }
 
 .peipe-partners-list {
-  padding: 12px 12px 18px;
+  padding: 14px 12px 20px;
   background: #fff;
 }
 
-/* 高级磨砂玻璃卡片：保留你这版 */
+/* Premium breathable list cards with varied gradient hairline borders */
 .peipe-partner-card {
+  --peipe-card-edge-1: rgba(255, 218, 112, .56);
+  --peipe-card-edge-2: rgba(190, 204, 224, .46);
+  --peipe-card-edge-3: rgba(255, 255, 255, .72);
+  --peipe-card-glow-1: rgba(255, 228, 143, .30);
+  --peipe-card-glow-2: rgba(208, 221, 238, .34);
+
   position: relative;
   display: flex;
   align-items: stretch;
-  gap: 8px;
+  gap: 10px;
   min-height: auto;
-  margin-bottom: 11px;
-  padding: 12px 10px 12px 12px;
-  border: 1px solid rgba(255, 255, 255, .72);
-  border-radius: 22px;
+  margin-bottom: 14px;
+  padding: 14px 12px 14px 13px;
+  border: 1px solid transparent;
+  border-radius: 24px;
   background:
-    radial-gradient(circle at 10% 6%, rgba(255, 225, 128, .48) 0, rgba(255, 225, 128, 0) 38%),
-    radial-gradient(circle at 100% 0%, rgba(205, 216, 228, .58) 0, rgba(205, 216, 228, 0) 42%),
-    linear-gradient(145deg, rgba(255, 255, 255, .72) 0%, rgba(255, 249, 234, .60) 52%, rgba(244, 248, 252, .72) 100%);
+    radial-gradient(circle at 8% 0%, var(--peipe-card-glow-1) 0, rgba(255, 255, 255, 0) 36%) padding-box,
+    radial-gradient(circle at 100% 4%, var(--peipe-card-glow-2) 0, rgba(255, 255, 255, 0) 42%) padding-box,
+    linear-gradient(145deg, rgba(255, 255, 255, .84) 0%, rgba(255, 252, 244, .68) 52%, rgba(248, 251, 255, .78) 100%) padding-box,
+    linear-gradient(135deg, var(--peipe-card-edge-1), var(--peipe-card-edge-2) 48%, var(--peipe-card-edge-3)) border-box;
   box-shadow:
-    0 14px 36px rgba(15, 23, 42, .075),
-    0 3px 10px rgba(15, 23, 42, .05),
-    inset 0 1px 0 rgba(255, 255, 255, .88),
-    inset 0 -1px 0 rgba(255, 255, 255, .38);
-  backdrop-filter: blur(18px) saturate(1.12);
-  -webkit-backdrop-filter: blur(18px) saturate(1.12);
+    0 18px 46px rgba(15, 23, 42, .052),
+    0 6px 18px rgba(15, 23, 42, .032);
+  backdrop-filter: blur(18px) saturate(1.08);
+  -webkit-backdrop-filter: blur(18px) saturate(1.08);
   overflow: hidden;
+  isolation: isolate;
+}
+
+.peipe-partner-card:nth-child(6n + 1) {
+  --peipe-card-edge-1: rgba(255, 218, 112, .62);
+  --peipe-card-edge-2: rgba(191, 203, 224, .48);
+  --peipe-card-edge-3: rgba(255, 255, 255, .78);
+  --peipe-card-glow-1: rgba(255, 227, 139, .32);
+  --peipe-card-glow-2: rgba(210, 222, 238, .34);
+}
+
+.peipe-partner-card:nth-child(6n + 2) {
+  --peipe-card-edge-1: rgba(196, 181, 253, .58);
+  --peipe-card-edge-2: rgba(252, 211, 177, .44);
+  --peipe-card-edge-3: rgba(255, 255, 255, .76);
+  --peipe-card-glow-1: rgba(216, 205, 255, .24);
+  --peipe-card-glow-2: rgba(255, 228, 200, .28);
+}
+
+.peipe-partner-card:nth-child(6n + 3) {
+  --peipe-card-edge-1: rgba(167, 214, 202, .58);
+  --peipe-card-edge-2: rgba(255, 221, 148, .48);
+  --peipe-card-edge-3: rgba(255, 255, 255, .76);
+  --peipe-card-glow-1: rgba(191, 230, 221, .26);
+  --peipe-card-glow-2: rgba(255, 227, 158, .28);
+}
+
+.peipe-partner-card:nth-child(6n + 4) {
+  --peipe-card-edge-1: rgba(186, 211, 255, .58);
+  --peipe-card-edge-2: rgba(245, 194, 219, .42);
+  --peipe-card-edge-3: rgba(255, 255, 255, .76);
+  --peipe-card-glow-1: rgba(208, 226, 255, .28);
+  --peipe-card-glow-2: rgba(255, 218, 235, .24);
+}
+
+.peipe-partner-card:nth-child(6n + 5) {
+  --peipe-card-edge-1: rgba(255, 205, 171, .58);
+  --peipe-card-edge-2: rgba(197, 215, 234, .46);
+  --peipe-card-edge-3: rgba(255, 255, 255, .76);
+  --peipe-card-glow-1: rgba(255, 224, 202, .28);
+  --peipe-card-glow-2: rgba(214, 226, 240, .30);
+}
+
+.peipe-partner-card:nth-child(6n) {
+  --peipe-card-edge-1: rgba(210, 200, 255, .56);
+  --peipe-card-edge-2: rgba(183, 225, 218, .42);
+  --peipe-card-edge-3: rgba(255, 255, 255, .78);
+  --peipe-card-glow-1: rgba(221, 214, 255, .24);
+  --peipe-card-glow-2: rgba(206, 235, 229, .25);
 }
 
 .peipe-partner-card::before {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 0;
   pointer-events: none;
   border-radius: inherit;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, .58), rgba(255, 255, 255, 0) 52%),
-    linear-gradient(90deg, rgba(255, 255, 255, .48), rgba(255, 255, 255, 0) 26%, rgba(255, 255, 255, .28) 100%);
+    linear-gradient(180deg, rgba(255, 255, 255, .50), rgba(255, 255, 255, 0) 48%),
+    linear-gradient(90deg, rgba(255, 255, 255, .34), rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, .20) 100%);
 }
 
 .peipe-partner-card::after {
   content: "";
   position: absolute;
   inset: 1px;
+  z-index: 0;
   pointer-events: none;
-  border-radius: 21px;
+  border-radius: 23px;
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, .62),
-    inset 0 0 22px rgba(255, 255, 255, .32);
+    inset 0 0 0 1px rgba(255, 255, 255, .55),
+    inset 0 8px 20px rgba(255, 255, 255, .20);
 }
 
 .peipe-card-main,
@@ -127,9 +183,9 @@
 }
 
 .peipe-left {
-  width: 56px;
-  margin-right: 10px;
-  flex: 0 0 56px;
+  width: 58px;
+  margin-right: 11px;
+  flex: 0 0 58px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -137,35 +193,72 @@
 
 .peipe-avatar-wrap {
   position: relative;
-  width: 54px;
-  height: 54px;
-  margin-bottom: 6px;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 7px;
 }
 
 .peipe-avatar {
-  width: 54px;
-  height: 54px;
-  display: block;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
   object-fit: cover;
-  background: #eef0f3;
-  border: 1px solid rgba(255, 255, 255, .9);
-  box-shadow: 0 4px 12px rgba(15, 23, 42, .10);
+  background:
+    radial-gradient(circle at 28% 18%, rgba(255, 255, 255, .68), rgba(255, 255, 255, 0) 34%),
+    linear-gradient(145deg, #f6d7df 0%, #dcd7fb 48%, #d9ecf4 100%);
+  color: rgba(72, 78, 92, .72);
+  border: 1.5px solid rgba(255, 255, 255, .94);
+  box-shadow:
+    0 10px 22px rgba(15, 23, 42, .085),
+    inset 0 1px 0 rgba(255, 255, 255, .72);
+  font-size: 15px;
+  line-height: 1;
+  font-weight: 780;
+  letter-spacing: -.02em;
+  text-transform: uppercase;
+  overflow: hidden;
+}
+
+.peipe-avatar-wrap:nth-child(3n + 1) .peipe-avatar,
+.peipe-partner-card:nth-child(3n + 1) .peipe-avatar {
+  background:
+    radial-gradient(circle at 28% 18%, rgba(255, 255, 255, .68), rgba(255, 255, 255, 0) 34%),
+    linear-gradient(145deg, #f8d6cf 0%, #efe3c6 48%, #d8e8f5 100%);
+}
+
+.peipe-partner-card:nth-child(3n + 2) .peipe-avatar {
+  background:
+    radial-gradient(circle at 28% 18%, rgba(255, 255, 255, .68), rgba(255, 255, 255, 0) 34%),
+    linear-gradient(145deg, #d8e8ff 0%, #e4dcfb 50%, #f5ddea 100%);
+}
+
+.peipe-partner-card:nth-child(3n) .peipe-avatar {
+  background:
+    radial-gradient(circle at 28% 18%, rgba(255, 255, 255, .68), rgba(255, 255, 255, 0) 34%),
+    linear-gradient(145deg, #d7efe5 0%, #f5e4c9 50%, #e4ddf4 100%);
 }
 
 .peipe-flag-emoji {
   position: absolute;
-  left: -3px;
-  bottom: -3px;
+  left: -2px;
+  bottom: -2px;
   z-index: 3;
-  display: block;
-  font-size: 18px;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  font-size: 16px;
   line-height: 1;
   font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, .15);
+  background: rgba(255, 255, 255, .92) !important;
+  border: 2px solid rgba(255, 255, 255, .96) !important;
+  box-shadow: 0 5px 12px rgba(15, 23, 42, .12) !important;
+  text-shadow: none;
 }
 
 .peipe-online-dot {
@@ -178,11 +271,11 @@
   border-radius: 50%;
   background: #2fb344;
   border: 1.5px solid #fff;
-  box-shadow: 0 0 0 1px rgba(47, 179, 68, .18), 0 2px 5px rgba(47, 179, 68, .24);
+  box-shadow: 0 0 0 1px rgba(47, 179, 68, .16), 0 2px 5px rgba(47, 179, 68, .20);
 }
 
 .peipe-status {
-  max-width: 64px;
+  max-width: 66px;
   min-height: 13px;
   font-size: 10px;
   line-height: 1.25;
@@ -202,7 +295,7 @@
   flex: 1 1 auto;
   min-width: 0;
   padding-top: 1px;
-  padding-right: 2px;
+  padding-right: 3px;
 }
 
 .peipe-name-row {
@@ -210,7 +303,7 @@
   align-items: center;
   gap: 7px;
   min-width: 0;
-  margin-bottom: 4px;
+  margin-bottom: 5px;
 }
 
 .peipe-name {
@@ -218,9 +311,10 @@
   max-width: 100%;
   display: inline-block;
   font-size: 17.5px;
-  line-height: 1.35;
+  line-height: 1.32;
   font-weight: 850;
   color: #1f2937;
+  letter-spacing: -.018em;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -229,7 +323,7 @@
 
 .peipe-meta-pill {
   flex: 0 0 auto;
-  height: 21px;
+  height: 20px;
   min-width: 25px;
   padding: 0 7px;
   border-radius: 999px;
@@ -237,33 +331,33 @@
   align-items: center;
   justify-content: center;
   gap: 3px;
-  font-size: 11px;
+  font-size: 10.5px;
   line-height: 1;
   font-weight: 800;
   border: 1px solid transparent;
 }
 
 .peipe-meta-pill.male {
-  color: #1769e6;
-  background: linear-gradient(180deg, #eef6ff, #e7f0ff);
-  border-color: #d5e7ff;
+  color: #2563c9;
+  background: #eaf4ff;
+  border-color: #dbeafe;
 }
 
 .peipe-meta-pill.female {
-  color: #d83d8f;
-  background: linear-gradient(180deg, #fff1fa, #fde9f6);
-  border-color: #f8d5eb;
+  color: #c73577;
+  background: #ffeaf3;
+  border-color: #ffd8e8;
 }
 
 .peipe-meta-pill.neutral {
-  color: #6b7280;
+  color: #667085;
   background: #f3f4f6;
-  border-color: #e5e7eb;
+  border-color: #e8eaef;
 }
 
 .peipe-gender-svg {
-  width: 13px;
-  height: 13px;
+  width: 12px;
+  height: 12px;
   display: block;
   fill: none;
   stroke: currentColor;
@@ -276,7 +370,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
   font-size: 12px;
   line-height: 1.25;
 }
@@ -304,15 +398,32 @@
   white-space: normal;
   display: block;
   font-size: 13.5px;
-  line-height: 1.46;
+  line-height: 1.48;
   color: #68707d;
   min-height: 0;
-  margin-top: 2px;
+  margin-top: 3px;
   word-break: break-word;
 }
 
-.peipe-bio:empty {
-  display: none;
+.peipe-bio:empty,
+.peipe-bio.no-bio,
+.peipe-bio.is-empty,
+.peipe-bio[data-empty="true"] {
+  font-size: 0;
+  line-height: 0;
+}
+
+.peipe-bio:empty::before,
+.peipe-bio.no-bio::before,
+.peipe-bio.is-empty::before,
+.peipe-bio[data-empty="true"]::before {
+  content: "\8FD9\4E2A\4EBA\5F88\61D2\FF0C\4EC0\4E48\90FD\6CA1\7559\4E0B~";
+  display: block;
+  font-size: 13px;
+  line-height: 1.46;
+  color: #a1a8b3;
+  font-style: italic;
+  font-weight: 500;
 }
 
 .peipe-side {
@@ -327,16 +438,15 @@
   padding-top: 2px;
 }
 
-/* 打招呼按钮：低饱和紫色、小圆角、白色手掌 + 斜体 HI */
+/* Flat premium greeting button */
 .peipe-greet-btn {
   position: relative;
   width: 62px;
-  height: 42px;
+  height: 40px;
   border: 0;
-  border-radius: 15px;
+  border-radius: 14px;
   overflow: hidden;
-  background:
-    linear-gradient(145deg, rgba(151, 132, 214, .96), rgba(112, 98, 178, .96));
+  background: #8d80c7;
   color: #fff;
   display: inline-flex;
   align-items: center;
@@ -345,31 +455,25 @@
   cursor: pointer;
   user-select: none;
   outline: none;
-  box-shadow:
-    0 10px 22px rgba(112, 98, 178, .24),
-    0 3px 8px rgba(15, 23, 42, .08),
-    inset 0 1px 0 rgba(255, 255, 255, .30),
-    inset 0 -1px 0 rgba(36, 27, 82, .16);
-  transition:
-    transform .14s ease,
-    opacity .14s ease,
-    box-shadow .14s ease,
-    filter .14s ease;
+  box-shadow: 0 10px 22px rgba(99, 86, 160, .16);
+  transition: transform .14s ease, opacity .14s ease, box-shadow .14s ease, background-color .14s ease;
   -webkit-tap-highlight-color: transparent;
 }
 
 .peipe-greet-btn::before {
-  content: "👋";
+  content: "\270B\FE0E";
   position: relative;
   z-index: 1;
-  font-size: 16px;
+  color: #fff;
+  font-size: 15px;
   line-height: 1;
-  transform: translateY(-1px);
-  filter: brightness(0) invert(1);
+  font-family: "Segoe UI Symbol", "Apple Symbols", "Arial Unicode MS", sans-serif;
+  font-weight: 700;
+  transform: translateY(-1px) rotate(-8deg);
 }
 
 .peipe-greet-btn::after {
-  content: "Hi";
+  content: "HI";
   position: relative;
   z-index: 1;
   color: #fff;
@@ -377,17 +481,18 @@
   line-height: 1;
   font-weight: 900;
   font-style: italic;
-  letter-spacing: .03em;
+  letter-spacing: .035em;
   transform: skewX(-9deg) rotate(-3deg) translateY(.5px);
   transform-origin: center;
 }
 
+.peipe-greet-btn:hover {
+  background: #8275be;
+}
+
 .peipe-greet-btn:active {
-  transform: scale(.96) translateY(1px);
-  box-shadow:
-    0 7px 16px rgba(112, 98, 178, .20),
-    0 2px 6px rgba(15, 23, 42, .08),
-    inset 0 1px 0 rgba(255, 255, 255, .26);
+  transform: scale(.965) translateY(1px);
+  box-shadow: 0 6px 14px rgba(99, 86, 160, .14);
 }
 
 .peipe-greet-btn.loading {
@@ -405,18 +510,16 @@
 }
 
 .peipe-btn-spinner {
-  width: 20px;
-  height: 20px;
+  width: 19px;
+  height: 19px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, .22);
+  border: 2px solid rgba(255, 255, 255, .28);
   border-top-color: #fff;
   animation: peipe-spin .75s linear infinite;
 }
 
 @keyframes peipe-spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
 .peipe-distance {
@@ -461,18 +564,18 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  min-height: 96px;
-  margin-bottom: 11px;
-  padding: 12px;
-  border-radius: 21px;
-  border: 1px solid rgba(228, 233, 242, .88);
+  min-height: 98px;
+  margin-bottom: 14px;
+  padding: 14px 12px;
+  border-radius: 24px;
+  border: 1px solid rgba(238, 241, 246, .96);
   background: #fff;
-  box-shadow: 0 8px 22px rgba(16, 24, 40, .045), 0 2px 6px rgba(16, 24, 40, .03);
+  box-shadow: 0 14px 34px rgba(16, 24, 40, .035);
 }
 
 .peipe-skeleton-left {
-  width: 57px;
-  margin-right: 12px;
+  width: 58px;
+  margin-right: 11px;
   flex-shrink: 0;
 }
 
@@ -500,14 +603,12 @@
 }
 
 @keyframes peipe-shimmer {
-  100% {
-    left: 140%;
-  }
+  100% { left: 140%; }
 }
 
 .peipe-skeleton-avatar {
-  width: 54px;
-  height: 54px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   margin-bottom: 7px;
 }
@@ -551,8 +652,8 @@
 
 .peipe-skeleton-button {
   width: 62px;
-  height: 42px;
-  border-radius: 15px;
+  height: 40px;
+  border-radius: 14px;
 }
 
 .peipe-profile-mask {
@@ -884,9 +985,19 @@
 }
 
 @media (max-width: 360px) {
+  .peipe-partners-list {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
   .peipe-partner-card {
-    padding: 10px 8px 10px 10px;
-    gap: 6px;
+    padding: 12px 9px 12px 10px;
+    gap: 7px;
+    border-radius: 22px;
+  }
+
+  .peipe-partner-card::after {
+    border-radius: 21px;
   }
 
   .peipe-left {
@@ -901,6 +1012,16 @@
     height: 50px;
   }
 
+  .peipe-avatar {
+    font-size: 14px;
+  }
+
+  .peipe-flag-emoji {
+    width: 22px;
+    height: 22px;
+    font-size: 15px;
+  }
+
   .peipe-side {
     width: 58px;
     flex-basis: 58px;
@@ -908,12 +1029,12 @@
 
   .peipe-greet-btn {
     width: 56px;
-    height: 40px;
-    border-radius: 14px;
+    height: 38px;
+    border-radius: 13px;
   }
 
   .peipe-greet-btn::before {
-    font-size: 15px;
+    font-size: 14px;
   }
 
   .peipe-greet-btn::after {
